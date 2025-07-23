@@ -1,19 +1,16 @@
 {
   "name": "DansDans",
-  "version": "10.8.1",
-  "description": "DansDans latest multi-device WhatsApp bot",
+  "version": "1.0.0",
+  "description": "Serverless WhatsApp bot using Baileys",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": ["DansDans", "whatsapp-bot", "whatsapp md bot"],
-  "author": "DansDans",
-  "license": "ISC",
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.16",
     "@hapi/boom": "^10.0.1",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.2"
+    "axios": "^1.6.8",
+    "form-data": "^4.0.0"
   }
 }
