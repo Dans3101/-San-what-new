@@ -58,13 +58,13 @@ async function retry(fn, retries = 3) {
 function runMainModule(filepath) {
   exec(`node ${filepath}`, (error, stdout, stderr) => {
     if (error) {
-      logger.error(`❌ Error running main.js: ${error.message}`);
+      logger.error(`❌ Error running ${mainModule}: ${error.message}`);
       return;
     }
     if (stderr) {
       logger.warn(`⚠️ stderr: ${stderr}`);
     }
-    logger.info(`✅ main.js output:\n${stdout}`);
+    logger.info(`✅ ${mainModule} output:\n${stdout}`);
   });
 }
 
@@ -76,14 +76,16 @@ function runMainModule(filepath) {
     if (fs.existsSync(filePath)) {
       runMainModule(filePath);
     } else {
-      logger.error('❌ main.js not found.');
+      logger.error(`❌ ${mainModule} not found.`);
     }
   } catch (err) {
     logger.error(`🚨 Fatal error: ${err.message}`);
   }
 })();
 
-// Minimal server with health check for Render
+// Minimal health check server for Render
+const port = process.env.PORT || 3000;
+
 http.createServer((req, res) => {
   if (req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -92,6 +94,6 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('DansDans bot is running');
   }
-}).listen(process.env.PORT || 3000, () => {
-  logger.info(`🌐 Server listening on port ${process.env.PORT || 3000}`);
+}).listen(port, () => {
+  logger.info(`🌐 Health check server listening on port ${port}`);
 });
