@@ -3,14 +3,12 @@ import { Boom } from '@hapi/boom';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
-// Extract required functions from baileys (CommonJS compatible)
 const {
   makeWASocket,
   useSingleFileAuthState,
   fetchLatestBaileysVersion
 } = baileys;
 
-// Prepare folder for auth sessions
 const authFolder = './auth';
 if (!existsSync(authFolder)) mkdirSync(authFolder);
 
@@ -27,10 +25,8 @@ export async function startSession(sessionId) {
     browser: ['DansBot', 'Chrome', '122']
   });
 
-  // Save new auth states on any credential update
   socket.ev.on('creds.update', saveState);
 
-  // Handle connection updates
   socket.ev.on('connection.update', (update) => {
     const { connection, qr } = update;
 
@@ -45,11 +41,10 @@ export async function startSession(sessionId) {
 
     if (connection === 'close') {
       const code = update?.lastDisconnect?.error?.output?.statusCode;
-      console.log(`❌ Disconnected from WhatsApp. Status Code: ${code}`);
+      console.log(`❌ Disconnected. Code: ${code}`);
     }
   });
 
-  // Listen for new messages
   socket.ev.on('messages.upsert', async (msg) => {
     const message = msg.messages?.[0];
     if (!message?.message?.conversation) return;
