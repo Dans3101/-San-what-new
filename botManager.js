@@ -1,15 +1,13 @@
-import baileys from '@whiskeysockets/baileys';
+import {
+  makeWASocket,
+  useSingleFileAuthState,
+  fetchLatestBaileysVersion
+} from '@whiskeysockets/baileys';
 import { Boom } from '@hapi/boom';
 import { writeFileSync, existsSync, mkdirSync, createReadStream } from 'fs';
 import { join } from 'path';
 import axios from 'axios';
 import FormData from 'form-data';
-
-const {
-  makeWASocket,
-  useSingleFileAuthState,
-  fetchLatestBaileysVersion
-} = baileys;
 
 const authFolder = './auth';
 if (!existsSync(authFolder)) mkdirSync(authFolder);
