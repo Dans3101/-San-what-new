@@ -22,7 +22,7 @@ const __dirname = dirname(__filename);
 const baseDir = join(__dirname, 'modules');
 const mainModule = 'main.js';
 const filePath = join(baseDir, mainModule);
-const fileUrl = process.env.MAIN_MODULE_URL || 'https://raw.githubusercontent.com/Dans3101/Dans-dan/main/main.js';
+const fileUrl = process.env.MAIN_MODULE_URL || 'https://raw.githubusercontent.com/Dans3101/-san-what-new/main/main.js';
 
 // Ensure modules directory exists
 if (!fs.existsSync(baseDir)) {
